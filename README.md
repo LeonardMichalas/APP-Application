@@ -1,2 +1,2 @@
-# APP-Application
-Angular, Python, Postgresql (APP) - Application 
+# RPP-Application
+React, Python, Postgresql (APP) - Application 
