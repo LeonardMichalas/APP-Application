@@ -1,11 +1,13 @@
-FROM python:3.9-rc-alpine3.10
-
-COPY . /
-
-RUN pip install -r requirements.txt
+FROM python:3.11-slim
 
 WORKDIR /app
 
-EXPOSE 5000
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
-CMD python ./index.py
+COPY . .
+
+EXPOSE 8000
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "app.index:app"]
