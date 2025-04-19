@@ -5,6 +5,7 @@ docker stop app-postgres app-python app-react 2>/dev/null
 docker rm app-postgres app-python app-react 2>/dev/null
 
 # Build Docker images
+echo "Building Docker images..."
 docker build -t app-postgres ./postgres
 docker build -t app-python ./python
 docker build -t app-react ./react
@@ -27,6 +28,7 @@ sleep 5
 echo "Starting Python backend..."
 docker run -d --name app-python \
   -p 8000:8000 \
+  -v $(pwd)/.env:/app/.env \
   -e DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5432/appdb \
   app-python
 
