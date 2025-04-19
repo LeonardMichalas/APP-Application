@@ -23,13 +23,13 @@ else
     echo "❌ Python Backend is not responding"
 fi
 
-# Test Angular Frontend
-echo -e "\nTesting Angular Frontend..."
-if curl -s http://localhost:4200 > /dev/null; then
-    echo "✅ Angular Frontend is running"
-    echo "   Open http://localhost:4200 in your browser to see the application"
+# Test React Frontend
+echo -e "\nTesting React Frontend..."
+if curl -s http://localhost:3000 > /dev/null; then
+    echo "✅ React Frontend is running"
+    echo "   Open http://localhost:3000 in your browser to see the application"
 else
-    echo "❌ Angular Frontend is not responding"
+    echo "❌ React Frontend is not responding"
 fi
 
 # Check container status

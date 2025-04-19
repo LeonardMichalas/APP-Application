@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Stop and remove existing containers if they exist
-docker stop app-postgres app-python app-angular 2>/dev/null
-docker rm app-postgres app-python app-angular 2>/dev/null
+docker stop app-postgres app-python app-react 2>/dev/null
+docker rm app-postgres app-python app-react 2>/dev/null
 
 # Build Docker images
 docker build -t app-postgres ./postgres
 docker build -t app-python ./python
-docker build -t app-angular ./angular
+docker build -t app-react ./react
 
 # Start PostgreSQL
 echo "Starting PostgreSQL..."
@@ -30,13 +30,13 @@ docker run -d --name app-python \
   -e DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5432/appdb \
   app-python
 
-# Start Angular frontend
-echo "Starting Angular frontend..."
-docker run -d --name app-angular \
-  -p 4200:4200 \
-  app-angular
+# Start React frontend
+echo "Starting React frontend..."
+docker run -d --name app-react \
+  -p 3000:3000 \
+  app-react
 
 echo "All services started!"
 echo "PostgreSQL is running on port 5432"
 echo "Python backend is running on port 8000"
-echo "Angular frontend is running on port 4200" 
+echo "React frontend is running on port 3000" 

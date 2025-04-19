@@ -1,4 +1,4 @@
-From node:18-alpine
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -10,13 +10,12 @@ RUN npm install
 COPY . .
 
 # Build the application
-RUN npm run build --prod
+RUN npm run build
 
 # Install serve to run the built application
 RUN npm install -g serve
 
-# The build output will be in /app/dist/mean-app
-EXPOSE 4200
+EXPOSE 3000
 
 # Serve the built application
-CMD ["serve", "-s", "dist/mean-app", "-l", "4200"]
+CMD ["serve", "-s", "build", "-l", "3000"] 
