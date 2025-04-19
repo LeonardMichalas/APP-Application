@@ -1,14 +1,22 @@
-From node:12.15.0-alpine
+From node:18-alpine
 
-RUN mkdir -p /app
 WORKDIR /app
 
-COPY package.json /app/
+# Install dependencies first (better caching)
+COPY package*.json ./
+RUN npm install
 
-RUN ["npm","install"]
+# Copy the rest of the application
+COPY . .
 
-COPY . /app
+# Build the application
+RUN npm run build --prod
 
-EXPOSE 4200/tcp
+# Install serve to run the built application
+RUN npm install -g serve
 
-CMD ["npm", "start", "--", "--host", "0.0.0.0", "--poll", "500"]
+# The build output will be in /app/dist/mean-app
+EXPOSE 4200
+
+# Serve the built application
+CMD ["serve", "-s", "dist/mean-app", "-l", "4200"]
